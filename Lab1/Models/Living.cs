@@ -21,7 +21,9 @@ namespace Lab1.Models
         public DateTime Eviction { get; set; }
         [Display(Name = "Числовое обозначение апартаментов")]
         public int NumberOfApartments { get; set; }
+        public int? ClientId { get; set; }
         public Client Client { get; set; }
+        public int? ApartmentsId { get; set; }
         public Apartments Apartments { get; set;}
         public ICollection<AditionServices> AditionServices { get; set; }
         public Living()

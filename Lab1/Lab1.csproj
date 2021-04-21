@@ -165,6 +165,18 @@
     <Compile Include="Migrations\202104201023594_editingNo1OfApartments.Designer.cs">
       <DependentUpon>202104201023594_editingNo1OfApartments.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104212041417_TestMigration1.cs" />
+    <Compile Include="Migrations\202104212041417_TestMigration1.Designer.cs">
+      <DependentUpon>202104212041417_TestMigration1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104212042256_TestMigration2.cs" />
+    <Compile Include="Migrations\202104212042256_TestMigration2.Designer.cs">
+      <DependentUpon>202104212042256_TestMigration2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104212042491_TestMigration3.cs" />
+    <Compile Include="Migrations\202104212042491_TestMigration3.Designer.cs">
+      <DependentUpon>202104212042491_TestMigration3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AditionServices.cs" />
     <Compile Include="Models\Apartments.cs" />
@@ -291,6 +303,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104201023594_editingNo1OfApartments.resx">
       <DependentUpon>202104201023594_editingNo1OfApartments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104212041417_TestMigration1.resx">
+      <DependentUpon>202104212041417_TestMigration1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104212042256_TestMigration2.resx">
+      <DependentUpon>202104212042256_TestMigration2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104212042491_TestMigration3.resx">
+      <DependentUpon>202104212042491_TestMigration3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

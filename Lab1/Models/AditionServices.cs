@@ -15,7 +15,9 @@ namespace Lab1.Models
         [DataType(DataType.Date)]
         public DateTime DateOfService { get; set; }
         //добавить дату оказания услуги
+        public int? LivingsId { get; set; }
         public Living Living { get; set; }
+        public int? ServiceTypesId { get; set; }
         public ServiceType ServiceTypes { get; set; }
     }
 }
