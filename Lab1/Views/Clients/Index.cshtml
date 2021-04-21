@@ -1,0 +1,109 @@
+﻿@model IEnumerable<Lab1.Models.Client>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@*<div class="form-group row justify-content-md-center">
+    <form action="~/Controllers/Clients/SearchWithValues">
+        <div class="col-lg-2">
+            <input class="form-control text-box " name="searchableName" type="text" value="" placeholder="Имя">
+        </div>
+        <div class="col-lg-2">
+            <input class="form-control text-box " name="searchableSurname" type="text" value="" placeholder="Фамилия">
+        </div>
+        <div class="col-lg-2">
+            <input class="form-control text-box " name="searchablePatronymic" type="text" value="" placeholder="Отчество">
+        </div>
+        <div class="col-lg-2">
+            <input class="form-control text-box " name="searchableTelephone" type="text" value="" placeholder="Телефон">
+        </div>
+        <div class="col-lg-2">
+            <input class="btn btn-primary" name="search" type="button" value="Найти">
+        </div>
+    </form>
+</div>*@
+@using (Html.BeginForm("SearchWithValues", "Clients", FormMethod.Post)) //Эта срань не пашет
+{
+    <div class="col-lg-2">
+        <input class="form-control text-box " name="searchableName" type="text" value="" placeholder="Имя">
+    </div>
+    <div class="col-lg-2">
+        <input class="form-control text-box " name="searchableSurname" type="text" value="" placeholder="Фамилия">
+    </div>
+    <div class="col-lg-2">
+        <input class="form-control text-box " name="searchablePatronymic" type="text" value="" placeholder="Отчество">
+    </div>
+    <div class="col-lg-2">
+        <input class="form-control text-box " name="searchableTelephone" type="text" value="" placeholder="Телефон">
+    </div>
+    <div class="col-lg-2">
+        <input class="btn btn-primary" name="search" type="button" value="Найти">
+    </div>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Surname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Patronymic)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PassportNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PassportSeries)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Birgthday)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telephone)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patronymic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PassportNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PassportSeries)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Birgthday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telephone)
+            </td>
+            <td>
+                @Html.ActionLink("Изменить", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Детали", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.Id }) |
+                @Html.RouteLink("Добавить проживание", new { controller = "Livings", action = "Index", id = item.Id }) |
+                @Html.RouteLink("Добавить бронь", new { controller = "Bookings", action = "Index", id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
