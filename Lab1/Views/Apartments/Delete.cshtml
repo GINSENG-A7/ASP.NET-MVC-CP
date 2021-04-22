@@ -27,6 +27,14 @@
             @Html.DisplayFor(model => model.Price)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.ApartmentType.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApartmentType.Type)
+        </dd>
+
     </dl>
 
     @using (Html.BeginForm()) {
