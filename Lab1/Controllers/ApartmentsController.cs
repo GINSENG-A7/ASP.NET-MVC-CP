@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Lab1.Models;
+using Lab1.Models.DataViewModels;
 
 namespace Lab1.Controllers
 {
@@ -17,7 +18,7 @@ namespace Lab1.Controllers
         // GET: Apartments
         public ActionResult Index()
         {
-            return View(db.Apartments.ToList());
+            return View(db.Apartments.Include(a => a.ApartmentType).ToList());
         }
 
         // GET: Apartments/Details/5
@@ -27,7 +28,7 @@ namespace Lab1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Apartments apartments = db.Apartments.Find(id);
+            Apartments apartments = db.Apartments.Include(a => a.ApartmentType).ToList().Find(x => x.Id == id);
             if (apartments == null)
             {
                 return HttpNotFound();
@@ -38,6 +39,8 @@ namespace Lab1.Controllers
         // GET: Apartments/Create
         public ActionResult Create()
         {
+            ApartmentsTypeDataLogistics();
+
             return View();
         }
 
@@ -46,7 +49,7 @@ namespace Lab1.Controllers
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Number,Price")] Apartments apartments)
+        public ActionResult Create([Bind(Include = "Id,Number,Price,ApartmentTypeId")] Apartments apartments)
         {
             if (ModelState.IsValid)
             {
@@ -65,11 +68,14 @@ namespace Lab1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Apartments apartments = db.Apartments.Find(id);
+            Apartments apartments = db.Apartments.Include(a => a.ApartmentType).ToList().Find(x => x.Id == id);
             if (apartments == null)
             {
                 return HttpNotFound();
             }
+
+            ApartmentsTypeDataLogistics();
+
             return View(apartments);
         }
 
@@ -78,7 +84,7 @@ namespace Lab1.Controllers
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Number,Price")] Apartments apartments)
+        public ActionResult Edit([Bind(Include = "Id,Number,Price,ApartmentTypeId")] Apartments apartments)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +102,7 @@ namespace Lab1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Apartments apartments = db.Apartments.Find(id);
+            Apartments apartments = db.Apartments.Include(a => a.ApartmentType).ToList().Find(x => x.Id == id);
             if (apartments == null)
             {
                 return HttpNotFound();
@@ -122,6 +128,21 @@ namespace Lab1.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private void ApartmentsTypeDataLogistics()
+        {
+            List<ApartmentType> listApartmentType = db.ApartmentTypes.ToList();
+            List<DataViewApartmentType> viewApartmentType = new List<DataViewApartmentType>();
+            foreach (var item in listApartmentType)
+            {
+                viewApartmentType.Add(new DataViewApartmentType()
+                {
+                    ApartmentTypeId = item.Id,
+                    ApartmentTypeName = item.Type
+                });
+            }
+            ViewBag.ApartmentType = new SelectList(viewApartmentType, "ApartmentTypeId", "ApartmentTypeName");
         }
     }
 }

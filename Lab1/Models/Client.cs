@@ -24,12 +24,12 @@ namespace Lab1.Models
         public DateTime Birgthday { get; set; }
         [Display(Name = "Номер телефона")]
         public string Telephone { get; set; }
-        public ICollection<Living> Living { get; set; }
-        public ICollection<Booking> Booking { get; set; }
+        public ICollection<Living> Livings { get; set; }
+        public ICollection<Booking> Bookings { get; set; }
         public Client()
         {
-            Living = new List<Living>();
-            Booking = new List<Booking>();
+            Livings = new List<Living>();
+            Bookings = new List<Booking>();
         }
     }
 }

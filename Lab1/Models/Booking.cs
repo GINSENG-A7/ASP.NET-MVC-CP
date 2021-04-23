@@ -21,11 +21,9 @@ namespace Lab1.Models
         public DateTime Eviction { get; set; }
         [Display(Name = "Числовое обозначение апартаментов")]
         public int NumberOfApartments { get; set; }
+        public int? ClientId { get; set; }
         public Client Client { get; set; }
-        public ICollection<Apartments> Apartments { get; set; }
-        public Booking()
-        {
-            Apartments = new List<Apartments>();
-        }
+        public int? ApartmentsId { get; set; }
+        public Apartments Apartments { get; set; }
     }
 }
