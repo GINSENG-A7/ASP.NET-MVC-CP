@@ -185,6 +185,7 @@
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\ContextModel.cs" />
     <Compile Include="Models\DataViewModels\DataViewApartmentType.cs" />
+    <Compile Include="Models\DataViewModels\DataViewServiceType.cs" />
     <Compile Include="Models\Living.cs" />
     <Compile Include="Models\Photos.cs" />
     <Compile Include="Models\ServiceType.cs" />

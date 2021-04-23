@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Lab1.Models;
+using Lab1.Models.DataViewModels;
 
 namespace Lab1.Controllers
 {
@@ -17,7 +18,7 @@ namespace Lab1.Controllers
         // GET: AditionServices
         public ActionResult Index()
         {
-            return View(db.AditionServices.ToList());
+            return View(db.AditionServices.Include(a => a.ServiceTypes).ToList());
         }
 
         // GET: AditionServices/Details/5
@@ -27,7 +28,7 @@ namespace Lab1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AditionServices aditionServices = db.AditionServices.Find(id);
+            AditionServices aditionServices = db.AditionServices.Include(a => a.ServiceTypes).ToList().Find(x => x.Id == id);
             if (aditionServices == null)
             {
                 return HttpNotFound();
@@ -46,7 +47,7 @@ namespace Lab1.Controllers
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Price")] AditionServices aditionServices)
+        public ActionResult Create([Bind(Include = "Id,Price,DateOfService,ServicesTypeId")] AditionServices aditionServices)
         {
             if (ModelState.IsValid)
             {
@@ -65,11 +66,14 @@ namespace Lab1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AditionServices aditionServices = db.AditionServices.Find(id);
+            AditionServices aditionServices = db.AditionServices.Include(a => a.ServiceTypes).ToList().Find(x => x.Id == id);
             if (aditionServices == null)
             {
                 return HttpNotFound();
             }
+
+            ServiceTypesDataLogistics();
+
             return View(aditionServices);
         }
 
@@ -78,7 +82,7 @@ namespace Lab1.Controllers
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Price")] AditionServices aditionServices)
+        public ActionResult Edit([Bind(Include = "Id,Price,DateOfService,ServicesTypeId")] AditionServices aditionServices)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +100,7 @@ namespace Lab1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AditionServices aditionServices = db.AditionServices.Find(id);
+            AditionServices aditionServices = db.AditionServices.Include(a => a.ServiceTypes).ToList().Find(x => x.Id == id);
             if (aditionServices == null)
             {
                 return HttpNotFound();
@@ -122,6 +126,21 @@ namespace Lab1.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private void ServiceTypesDataLogistics()
+        {
+            List<ServiceType> listServiceType = db.ServiceTypes.ToList();
+            List<DataViewServiceType> viewServiceType = new List<DataViewServiceType>();
+            foreach (var item in listServiceType)
+            {
+                viewServiceType.Add(new DataViewServiceType()
+                {
+                    ServiceTypeId = item.Id,
+                    ServiceTypeName = item.Type
+                });
+            }
+            ViewBag.ApartmentType = new SelectList(viewServiceType, "ApartmentTypeId", "ApartmentTypeName");
         }
     }
 }
