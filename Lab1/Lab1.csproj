@@ -177,6 +177,10 @@
     <Compile Include="Migrations\202104212042491_TestMigration3.Designer.cs">
       <DependentUpon>202104212042491_TestMigration3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104271128160_ClientModelNewAtributes1.cs" />
+    <Compile Include="Migrations\202104271128160_ClientModelNewAtributes1.Designer.cs">
+      <DependentUpon>202104271128160_ClientModelNewAtributes1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AditionServices.cs" />
     <Compile Include="Models\Apartments.cs" />
@@ -189,6 +193,7 @@
     <Compile Include="Models\Living.cs" />
     <Compile Include="Models\Photos.cs" />
     <Compile Include="Models\ServiceType.cs" />
+    <Compile Include="Validation\Client\ClientAddingValidation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -314,6 +319,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104212042491_TestMigration3.resx">
       <DependentUpon>202104212042491_TestMigration3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104271128160_ClientModelNewAtributes1.resx">
+      <DependentUpon>202104271128160_ClientModelNewAtributes1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
