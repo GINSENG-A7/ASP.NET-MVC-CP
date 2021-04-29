@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lab1.Models.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Web;
 
 namespace Lab1.Models
 {
+    [ServiceTypeUniquenessValidation(ErrorMessage = "Такой тип дополнительных услуг уже существует")]
     public class ServiceType
     {
         public int Id { get; set; }

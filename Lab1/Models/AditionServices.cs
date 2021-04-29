@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lab1.Models.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,6 +7,9 @@ using System.Web;
 
 namespace Lab1.Models
 {
+    [AditionServicesPriceLessThenZeroValidation(ErrorMessage = "Цена услуги не может быть меньше нуля")]
+    [AditionServicesDateIsLessThenSettlingValidation(ErrorMessage = "Дата оказания услуги не может быть раньше даты начала проживания")]
+    [AditionServicesDateIsBiggerThenSettlingValidation(ErrorMessage = "Дата оказания услуги не может быть позже даты оканчания проживания")]
     public class AditionServices
     {
         public int Id { get; set; }

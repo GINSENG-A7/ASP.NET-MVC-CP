@@ -31,6 +31,7 @@ namespace Lab1.Models
         [Required(ErrorMessage = "Поле обязательно к заполнению")]
         [Display(Name = "Дата рождения")]
         [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime Birgthday { get; set; }
         [Required(ErrorMessage = "Поле обязательно к заполнению")]
         [Display(Name = "Номер телефона")]
