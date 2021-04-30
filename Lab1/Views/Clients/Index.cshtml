@@ -9,25 +9,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-@*<div class="form-group row justify-content-md-center">
-    <form action="~/Controllers/Clients/SearchWithValues">
-        <div class="col-lg-2">
-            <input class="form-control text-box " name="searchableName" type="text" value="" placeholder="Имя">
-        </div>
-        <div class="col-lg-2">
-            <input class="form-control text-box " name="searchableSurname" type="text" value="" placeholder="Фамилия">
-        </div>
-        <div class="col-lg-2">
-            <input class="form-control text-box " name="searchablePatronymic" type="text" value="" placeholder="Отчество">
-        </div>
-        <div class="col-lg-2">
-            <input class="form-control text-box " name="searchableTelephone" type="text" value="" placeholder="Телефон">
-        </div>
-        <div class="col-lg-2">
-            <input class="btn btn-primary" name="search" type="button" value="Найти">
-        </div>
-    </form>
-</div>*@
+
 @using (Html.BeginForm("SearchWithValues", "Clients", FormMethod.Post))
 {
     <div class="col-lg-2">
