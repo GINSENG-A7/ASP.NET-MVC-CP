@@ -8,26 +8,32 @@ using System.Web.Mvc;
 
 namespace Lab1.Models
 {
-    [ClientPassportUniquenessValidation(ErrorMessage = "Клиент с такими серией и номером паспорта уже зарегистрирован")]
-    [ClientTelephoneUniquenessValidation(ErrorMessage = "Клиент с таким телефоном уже зарегистрирован")]
+    //[ClientPassportUniquenessValidation(ErrorMessage = "Клиент с такими серией и номером паспорта уже зарегистрирован")]
+    //[ClientTelephoneUniquenessValidation(ErrorMessage = "Клиент с таким телефоном уже зарегистрирован")]
     public class Client
     {
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
         [Required(ErrorMessage = "Поле обязательно к заполнению")]
+        [RegularExpression(@"^[А-ЯЁA-Z][а-яёa-z]+$", ErrorMessage = "Некорректный формат данных")]
         [Display(Name = "Фамилия")]
         public string Surname { get; set; }
         [Required(ErrorMessage = "Поле обязательно к заполнению")]
+        [RegularExpression(@"^[А-ЯЁA-Z][а-яёa-z]+$", ErrorMessage = "Некорректный формат данных")]
         [Display(Name = "Имя")]
         public string Name { get; set; }
+        [Required(ErrorMessage = "Поле обязательно к заполнению")]
+        [RegularExpression(@"^[А-ЯЁA-Z][а-яёa-z]+$", ErrorMessage = "Некорректный формат данных")]
         [Display(Name = "Отчество")]
         public string Patronymic { get; set; }
         [Required(ErrorMessage = "Поле обязательно к заполнению")]
-        [Display(Name = "Номер паспорта")]
-        public string PassportNumber { get; set; }
-        [Required(ErrorMessage = "Поле обязательно к заполнению")]
+        [RegularExpression(@"^\d{4}$", ErrorMessage = "Некорректный формат данных")]
         [Display(Name = "Серия паспорта")]
         public string PassportSeries { get; set; }
+        [Required(ErrorMessage = "Поле обязательно к заполнению")]
+        [RegularExpression(@"^\d{6}$", ErrorMessage = "Некорректный формат данных")]
+        [Display(Name = "Номер паспорта")]
+        public string PassportNumber { get; set; }
         [Required(ErrorMessage = "Поле обязательно к заполнению")]
         [Display(Name = "Дата рождения")]
         [DataType(DataType.Date)]

@@ -185,6 +185,14 @@
     <Compile Include="Migrations\202104301358378_SimpleValidationV1.Designer.cs">
       <DependentUpon>202104301358378_SimpleValidationV1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104301839335_ReClientValidation.cs" />
+    <Compile Include="Migrations\202104301839335_ReClientValidation.Designer.cs">
+      <DependentUpon>202104301839335_ReClientValidation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105021124447_SimpleValidationFix.cs" />
+    <Compile Include="Migrations\202105021124447_SimpleValidationFix.Designer.cs">
+      <DependentUpon>202105021124447_SimpleValidationFix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AditionServices.cs" />
     <Compile Include="Models\Apartments.cs" />
@@ -335,6 +343,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104301358378_SimpleValidationV1.resx">
       <DependentUpon>202104301358378_SimpleValidationV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104301839335_ReClientValidation.resx">
+      <DependentUpon>202104301839335_ReClientValidation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105021124447_SimpleValidationFix.resx">
+      <DependentUpon>202105021124447_SimpleValidationFix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

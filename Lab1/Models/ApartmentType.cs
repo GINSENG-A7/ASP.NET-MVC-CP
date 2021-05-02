@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Lab1.Models
 {
-    [ApartmentTypeUniquenessValidation(ErrorMessage = "Такой тип апартаментов уже существует")]
+    //[ApartmentTypeUniquenessValidation(ErrorMessage = "Такой тип апартаментов уже существует")]
     public class ApartmentType
     {
         [HiddenInput(DisplayValue = false)]

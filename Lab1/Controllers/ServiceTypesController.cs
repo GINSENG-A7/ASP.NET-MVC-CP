@@ -48,6 +48,15 @@ namespace Lab1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Type")] ServiceType serviceType)
         {
+            foreach (ServiceType st in db.ServiceTypes.AsNoTracking().ToList())
+            {
+                //Проверка типа апартаментов на уникальность
+                if (serviceType.Type == st.Type)
+                {
+                    ModelState.AddModelError("Type", "Такой тип апартаментов уже сущевствует");
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 db.ServiceTypes.Add(serviceType);
@@ -80,6 +89,15 @@ namespace Lab1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Type")] ServiceType serviceType)
         {
+            foreach (ServiceType st in db.ServiceTypes.AsNoTracking().ToList())
+            {
+                //Проверка типа апартаментов на уникальность
+                if ((serviceType.Type == st.Type) && (serviceType.Id != st.Id))
+                {
+                    ModelState.AddModelError("Type", "Такой тип апартаментов уже сущевствует");
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(serviceType).State = EntityState.Modified;

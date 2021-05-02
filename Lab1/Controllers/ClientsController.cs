@@ -49,6 +49,22 @@ namespace Lab1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Surname,Name,Patronymic,PassportNumber,PassportSeries,Birgthday,Telephone")] Client client)
         {
+            IEnumerable<Client> listOfClients = db.Clients;
+            foreach (Client c in listOfClients)
+            {
+                //Проверка пасспортных данных на уникальность
+                if (client.PassportNumber == c.PassportNumber && client.PassportSeries == c.PassportSeries)
+                {
+                    ModelState.AddModelError("PassportSeries", "Клиент с такими серией или номером паспорта уже зарегистрирован");
+                }
+
+                //Проверка телефона на уникальность
+                if (client.Telephone == c.Telephone)
+                {
+                    ModelState.AddModelError("Telephone", "Клиент с таким телефоном уже зарегистрирован");
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 db.Clients.Add(client);
@@ -81,9 +97,24 @@ namespace Lab1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Surname,Name,Patronymic,PassportNumber,PassportSeries,Birgthday,Telephone")] Client client)
         {
+            foreach (Client c in db.Clients.AsNoTracking().ToList())
+            {
+                //Проверка пасспортных данных на уникальность
+                if ((client.PassportNumber == c.PassportNumber && client.PassportSeries == c.PassportSeries) && (client.Id != c.Id))
+                {
+                    ModelState.AddModelError("PassportSeries", "Клиент с такими серией или номером паспорта уже зарегистрирован");
+                }
+
+                //Проверка телефона на уникальность
+                if ((client.Telephone == c.Telephone) && (client.Id != c.Id))
+                {
+                    ModelState.AddModelError("Telephone", "Клиент с таким телефоном уже зарегистрирован");
+                }
+            }
+
             if (ModelState.IsValid)
             {
-                db.Entry(client).State = EntityState.Modified;
+                db.Entry(client).State = EntityState.Modified; //Тут ломается
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -125,12 +156,12 @@ namespace Lab1.Controllers
             base.Dispose(disposing);
         }
 
-        [HttpPost, ActionName("Search")]
-        private ActionResult SearchWithValues(string searchableName, string searchableSurname, string searchablePatronymic, string searchableTelephone)
+        [HttpPost]
+        public ActionResult SearchWithValues(string searchableName, string searchableSurname, string searchablePatronymic, string searchableTelephone)
         {    
             IEnumerable<Client> listOfClients  = db.Clients;
             var clients = from linqC in listOfClients where linqC.Name == searchableName && linqC.Surname == searchableSurname && linqC.Patronymic == searchablePatronymic && linqC.Telephone == searchableTelephone select linqC;
-            return View();
+            return View(clients);
         }
     }
 }
