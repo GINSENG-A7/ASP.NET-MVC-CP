@@ -15,12 +15,12 @@ namespace Lab1.Models
         public int ValueOfKids { get; set; }
         [Display(Name = "Дата заезда")]
         [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime Settling { get; set; }
         [Display(Name = "Дата выезда")]
         [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime Eviction { get; set; }
-        [Display(Name = "Числовое обозначение апартаментов")]
-        public int NumberOfApartments { get; set; }
         public int? ClientId { get; set; }
         public Client Client { get; set; }
         public int? ApartmentsId { get; set; }

@@ -68,8 +68,9 @@ namespace Lab1.Controllers
             if (ModelState.IsValid)
             {
                 db.Clients.Add(client);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var cId = client.Id; 
+                //db.SaveChanges();
+                return RedirectToAction("Create", "Bookings", new { id = int.Parse(cId.ToString()) });
             }
 
             return View(client);
@@ -114,7 +115,7 @@ namespace Lab1.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Entry(client).State = EntityState.Modified; //Тут ломается
+                db.Entry(client).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -160,8 +161,16 @@ namespace Lab1.Controllers
         public ActionResult SearchWithValues(string searchableName, string searchableSurname, string searchablePatronymic, string searchableTelephone)
         {    
             IEnumerable<Client> listOfClients  = db.Clients;
-            var clients = from linqC in listOfClients where linqC.Name == searchableName && linqC.Surname == searchableSurname && linqC.Patronymic == searchablePatronymic && linqC.Telephone == searchableTelephone select linqC;
-            return View(clients);
+            var clients = from linqC in db.Clients /*where linqC.Name == searchableName && linqC.Surname == searchableSurname && linqC.Patronymic == searchablePatronymic && linqC.Telephone == searchableTelephone*/ select linqC;
+            if (!string.IsNullOrEmpty(searchableName))
+                clients = clients.Where(c => c.Name.Contains(searchableName));
+            if (!string.IsNullOrEmpty(searchableSurname))
+                clients = clients.Where(с => с.Surname.Contains(searchableSurname));
+            if (!string.IsNullOrEmpty(searchablePatronymic))
+                clients = clients.Where(c => c.Patronymic.Contains(searchablePatronymic));
+            if (!string.IsNullOrEmpty(searchableTelephone))
+                clients = clients.Where(c => c.Telephone.Contains(searchableTelephone));
+            return View("Index", clients);
         }
     }
 }

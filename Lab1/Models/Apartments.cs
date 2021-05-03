@@ -8,8 +8,8 @@ using System.Web.Mvc;
 
 namespace Lab1.Models
 {
-    [ApartmentsPriceLessThenZeroValidation(ErrorMessage = "Цена апартаментов должна быть больше нуля")]
-    [ApartmentsNumberLessThenZeroValidation(ErrorMessage = "Номер апартаментов должен быть больше нуля")]
+    //[ApartmentsPriceLessThenZeroValidation(ErrorMessage = "Цена апартаментов должна быть больше нуля")]
+    //[ApartmentsNumberLessThenZeroValidation(ErrorMessage = "Номер апартаментов должен быть больше нуля")]
     //[ApartmentsNumberUniquenessValidation(ErrorMessage = "Апартаменты с таким номером уже сущевсвуют")]
     public class Apartments
     {
