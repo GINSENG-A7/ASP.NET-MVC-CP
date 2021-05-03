@@ -185,6 +185,22 @@
     <Compile Include="Migrations\202104301358378_SimpleValidationV1.Designer.cs">
       <DependentUpon>202104301358378_SimpleValidationV1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104301839335_ReClientValidation.cs" />
+    <Compile Include="Migrations\202104301839335_ReClientValidation.Designer.cs">
+      <DependentUpon>202104301839335_ReClientValidation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105021124447_SimpleValidationFix.cs" />
+    <Compile Include="Migrations\202105021124447_SimpleValidationFix.Designer.cs">
+      <DependentUpon>202105021124447_SimpleValidationFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105021446056_RemovingExtraDataFromLivingsAndBookings.cs" />
+    <Compile Include="Migrations\202105021446056_RemovingExtraDataFromLivingsAndBookings.Designer.cs">
+      <DependentUpon>202105021446056_RemovingExtraDataFromLivingsAndBookings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105021448287_RemovingExtraDataFromLivingsAndBookingsPt2.cs" />
+    <Compile Include="Migrations\202105021448287_RemovingExtraDataFromLivingsAndBookingsPt2.Designer.cs">
+      <DependentUpon>202105021448287_RemovingExtraDataFromLivingsAndBookingsPt2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AditionServices.cs" />
     <Compile Include="Models\Apartments.cs" />
@@ -192,7 +208,9 @@
     <Compile Include="Models\Booking.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\ContextModel.cs" />
+    <Compile Include="Models\DataViewModels\DataViewApartment.cs" />
     <Compile Include="Models\DataViewModels\DataViewApartmentType.cs" />
+    <Compile Include="Models\DataViewModels\DataViewClient.cs" />
     <Compile Include="Models\DataViewModels\DataViewServiceType.cs" />
     <Compile Include="Models\Living.cs" />
     <Compile Include="Models\Photos.cs" />
@@ -335,6 +353,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104301358378_SimpleValidationV1.resx">
       <DependentUpon>202104301358378_SimpleValidationV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104301839335_ReClientValidation.resx">
+      <DependentUpon>202104301839335_ReClientValidation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105021124447_SimpleValidationFix.resx">
+      <DependentUpon>202105021124447_SimpleValidationFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105021446056_RemovingExtraDataFromLivingsAndBookings.resx">
+      <DependentUpon>202105021446056_RemovingExtraDataFromLivingsAndBookings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105021448287_RemovingExtraDataFromLivingsAndBookingsPt2.resx">
+      <DependentUpon>202105021448287_RemovingExtraDataFromLivingsAndBookingsPt2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

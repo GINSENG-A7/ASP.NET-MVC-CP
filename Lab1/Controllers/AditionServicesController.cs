@@ -49,6 +49,16 @@ namespace Lab1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Price,DateOfService,ServicesTypeId")] AditionServices aditionServices)
         {
+            //Проверка корректности даты оказания дополнительных услуг 
+            if (aditionServices.DateOfService < aditionServices.Living.Settling)
+            {
+                ModelState.AddModelError("Number", "Дата оказания услуги не может быть меньше даты заезда");
+            }
+            if (aditionServices.DateOfService > aditionServices.Living.Eviction)
+            {
+                ModelState.AddModelError("Number", "Дата оказания услуги не может быть больше даты выезда");
+            }
+
             if (ModelState.IsValid)
             {
                 db.AditionServices.Add(aditionServices);
@@ -84,6 +94,16 @@ namespace Lab1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Price,DateOfService,ServicesTypeId")] AditionServices aditionServices)
         {
+            //Проверка корректности даты оказания дополнительных услуг 
+            if (aditionServices.DateOfService < aditionServices.Living.Settling)
+            {
+                ModelState.AddModelError("Number", "Дата оказания услуги не может быть меньше даты заезда");
+            }
+            if (aditionServices.DateOfService > aditionServices.Living.Eviction)
+            {
+                ModelState.AddModelError("Number", "Дата оказания услуги не может быть больше даты выезда");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(aditionServices).State = EntityState.Modified;

@@ -51,6 +51,15 @@ namespace Lab1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Number,Price,ApartmentTypeId")] Apartments apartments)
         {
+            foreach (Apartments n in db.Apartments.ToList())
+            {
+                //Проверка номера апартаментов на уникальность
+                if (apartments.Number == n.Number)
+                {
+                    ModelState.AddModelError("Number", "Апартаменты с таким номером уже зарегистрированы");
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 db.Apartments.Add(apartments);
@@ -86,6 +95,15 @@ namespace Lab1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Number,Price,ApartmentTypeId")] Apartments apartments)
         {
+            foreach (Apartments n in db.Apartments.AsNoTracking().ToList())
+            {
+                //Проверка номера апартаментов на уникальность
+                if ((apartments.Number == n.Number) && (apartments.Id == n.Id))
+                {
+                    ModelState.AddModelError("Number", "Апартаменты с таким номером уже зарегистрированы");
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(apartments).State = EntityState.Modified;

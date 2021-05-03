@@ -13,10 +13,10 @@
 @using (Html.BeginForm("SearchWithValues", "Clients", FormMethod.Post))
 {
     <div class="col-lg-2">
-        <input class="form-control text-box " name="searchableName" type="text" value="" placeholder="Имя">
+        <input class="form-control text-box " name="searchableSurname" type="text" value="" placeholder="Фамилия">
     </div>
     <div class="col-lg-2">
-        <input class="form-control text-box " name="searchableSurname" type="text" value="" placeholder="Фамилия">
+        <input class="form-control text-box " name="searchableName" type="text" value="" placeholder="Имя">
     </div>
     <div class="col-lg-2">
         <input class="form-control text-box " name="searchablePatronymic" type="text" value="" placeholder="Отчество">
@@ -40,10 +40,10 @@
             @Html.DisplayNameFor(model => model.Patronymic)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PassportNumber)
+            @Html.DisplayNameFor(model => model.PassportSeries)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PassportSeries)
+            @Html.DisplayNameFor(model => model.PassportNumber)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Birgthday)

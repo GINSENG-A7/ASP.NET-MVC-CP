@@ -24,7 +24,7 @@
             @Html.DisplayNameFor(model => model.Eviction)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NumberOfApartments)
+            @Html.DisplayNameFor(model => model.Apartments.Number)
         </th>
         <th></th>
     </tr>
@@ -44,7 +44,7 @@
             @Html.DisplayFor(modelItem => item.Eviction)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.NumberOfApartments)
+            @Html.DisplayFor(modelItem => item.Apartments.Number)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
@@ -53,5 +53,4 @@
         </td>
     </tr>
 }
-
 </table>
