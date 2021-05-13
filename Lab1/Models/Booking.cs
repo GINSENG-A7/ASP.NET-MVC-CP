@@ -23,6 +23,7 @@ namespace Lab1.Models
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime Eviction { get; set; }
+        [HiddenInput(DisplayValue = false)]
         public int? ClientId { get; set; }
         [HiddenInput(DisplayValue = false)]
         public Client Client { get; set; }

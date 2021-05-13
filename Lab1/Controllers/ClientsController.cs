@@ -68,9 +68,10 @@ namespace Lab1.Controllers
             if (ModelState.IsValid)
             {
                 db.Clients.Add(client);
-                var cId = client.Id; 
-                //db.SaveChanges();
-                return RedirectToAction("Create", "Bookings", new { id = int.Parse(cId.ToString()) });
+                db.SaveChanges();
+                int cId = client.Id;
+                return RedirectToAction("BookingDateChooser", "Bookings", new { id = cId});
+                //return RedirectToAction("Create", "Bookings", new { id = db.Clients.First(c => c.PassportSeries == client.PassportSeries && c.PassportNumber == client.PassportNumber).Id });
             }
 
             return View(client);

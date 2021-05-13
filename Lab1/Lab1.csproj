@@ -201,6 +201,10 @@
     <Compile Include="Migrations\202105021448287_RemovingExtraDataFromLivingsAndBookingsPt2.Designer.cs">
       <DependentUpon>202105021448287_RemovingExtraDataFromLivingsAndBookingsPt2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105131605597_CapacityColumnInApartmentTypes.cs" />
+    <Compile Include="Migrations\202105131605597_CapacityColumnInApartmentTypes.Designer.cs">
+      <DependentUpon>202105131605597_CapacityColumnInApartmentTypes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AditionServices.cs" />
     <Compile Include="Models\Apartments.cs" />
@@ -300,6 +304,7 @@
     <Content Include="Views\Apartments\Details.cshtml" />
     <Content Include="Views\Apartments\Edit.cshtml" />
     <Content Include="Views\Apartments\Index.cshtml" />
+    <Content Include="Views\Bookings\BookingDateChooser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -365,6 +370,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105021448287_RemovingExtraDataFromLivingsAndBookingsPt2.resx">
       <DependentUpon>202105021448287_RemovingExtraDataFromLivingsAndBookingsPt2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105131605597_CapacityColumnInApartmentTypes.resx">
+      <DependentUpon>202105131605597_CapacityColumnInApartmentTypes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

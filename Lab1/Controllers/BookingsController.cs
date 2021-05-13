@@ -41,6 +41,24 @@ namespace Lab1.Controllers
         //{
         //    return View();
         //}
+        public ActionResult BookingDateChooser(int? id)
+        {
+            ViewBag.ClientId = id;
+            return View("BookingDateChooser");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult BookingDateChooser([Bind(Include = "Settling,Eviction,ValueOfGuests,ValueOfKids,ClientId")] Booking booking)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Create", "Booking", new { id = booking.ClientId, settling = booking.Settling, eviction = booking.Eviction, vog = booking.ValueOfGuests, vok = booking.ValueOfKids });
+                //Поменять "Create" на новый метод вывода всех номеров удовлетворяющих передоваемым условиям
+            }
+
+            return View(booking);
+        }
         public ActionResult Create(int? id)
         {
             ApartmentsDataLogistics();
@@ -52,7 +70,7 @@ namespace Lab1.Controllers
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ValueOfGuests,ValueOfKids,Settling,Eviction,Client,Apartments")] Booking booking)
+        public ActionResult Create([Bind(Include = "Id,ValueOfGuests,ValueOfKids,Settling,Eviction,ClientId,ApartmentsId")] Booking booking)
         {
             if (ModelState.IsValid)
             {
