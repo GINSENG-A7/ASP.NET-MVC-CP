@@ -305,6 +305,7 @@
     <Content Include="Views\Apartments\Edit.cshtml" />
     <Content Include="Views\Apartments\Index.cshtml" />
     <Content Include="Views\Bookings\BookingDateChooser.cshtml" />
+    <Content Include="Views\Bookings\AvailableApartments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

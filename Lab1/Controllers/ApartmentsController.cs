@@ -98,7 +98,7 @@ namespace Lab1.Controllers
             foreach (Apartments n in db.Apartments.AsNoTracking().ToList())
             {
                 //Проверка номера апартаментов на уникальность
-                if ((apartments.Number == n.Number) && (apartments.Id == n.Id))
+                if ((apartments.Number == n.Number) && (apartments.Id != n.Id))
                 {
                     ModelState.AddModelError("Number", "Апартаменты с таким номером уже зарегистрированы");
                 }
@@ -157,10 +157,24 @@ namespace Lab1.Controllers
                 viewApartmentType.Add(new DataViewApartmentType()
                 {
                     ApartmentTypeId = item.Id,
-                    ApartmentTypeName = item.Type
+                    ApartmentTypeName = item.Type,
                 });
             }
             ViewBag.ApartmentType = new SelectList(viewApartmentType, "ApartmentTypeId", "ApartmentTypeName");
         }
+        //private void ApartmentsCapacityDataLogistics()
+        //{
+        //    List<ApartmentType> listApartmentType = db.ApartmentTypes.ToList();
+        //    List<DataViewApartmentType> viewApartmentCapacity = new List<DataViewApartmentType>();
+        //    foreach (var item in listApartmentType)
+        //    {
+        //        viewApartmentCapacity.Add(new DataViewApartmentType()
+        //        {
+        //            ApartmentTypeId = item.Id,
+        //            ApartmentTypeCapacity = item.Capacity
+        //        });
+        //    }
+        //    ViewBag.ApartmentCapacity = new SelectList(viewApartmentCapacity, "ApartmentTypeId", "ApartmentTypeCapacity");
+        //}
     }
 }

@@ -36,6 +36,19 @@ namespace Lab1.Controllers
             return View(booking);
         }
 
+        public ActionResult AvailableApartments(int? id, DateTime? settling, DateTime? eviction, int? vog, int? vok) 
+        {
+            ViewBag.ClientId = id;
+            var requestResult = db.Database.SqlQuery<Apartments>($"SELECT a.number, a.\"type\", a.price FROM Apartments a WHERE a.price > {0} AND a.price < {999999} AND ((a.number IN (SELECT number FROM Living WHERE eviction < '{settling}') AND NOT EXISTS(SELECT number FROM Booking WHERE a.number IN (SELECT number FROM Booking))) OR (a.number in (SELECT number FROM Booking WHERE settling > '{eviction}') OR (a.number in (SELECT number FROM Booking WHERE eviction < '{settling}'))) AND NOT EXISTS(SELECT number FROM Living WHERE a.number IN (SELECT number FROM Living)) OR ((a.number in (SELECT number FROM Living WHERE eviction<'{settling}')) AND (a.number in (SELECT number FROM Booking WHERE settling>'{eviction}') OR (a.number in (SELECT number FROM Booking WHERE eviction<'{settling}')))) OR (a.number NOT IN (SELECT number FROM Living) AND a.number NOT IN (SELECT number FROM Booking)))");
+            return View(db.Apartments.Include(a => a.ApartmentType).ToList());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AvailableApartments([Bind(Include = "Settling,Eviction,ValueOfGuests,ValueOfKids,ClientId")] Booking booking)
+        {
+            return View(booking);
+        }
         // GET: Bookings/Create
         //public ActionResult Create()
         //{
@@ -53,8 +66,7 @@ namespace Lab1.Controllers
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("Create", "Booking", new { id = booking.ClientId, settling = booking.Settling, eviction = booking.Eviction, vog = booking.ValueOfGuests, vok = booking.ValueOfKids });
-                //Поменять "Create" на новый метод вывода всех номеров удовлетворяющих передоваемым условиям
+                return RedirectToAction("AvailableApartments", new { id = booking.ClientId, settling = booking.Settling, eviction = booking.Eviction, vog = booking.ValueOfGuests, vok = booking.ValueOfKids });
             }
 
             return View(booking);
