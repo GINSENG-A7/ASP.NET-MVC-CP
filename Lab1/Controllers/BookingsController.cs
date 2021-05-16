@@ -39,8 +39,10 @@ namespace Lab1.Controllers
         public ActionResult AvailableApartments(int? id, DateTime? settling, DateTime? eviction, int? vog, int? vok) 
         {
             ViewBag.ClientId = id;
-            var requestResult = db.Database.SqlQuery<Apartments>($"SELECT a.number, a.\"type\", a.price FROM Apartments a WHERE a.price > {0} AND a.price < {999999} AND ((a.number IN (SELECT number FROM Living WHERE eviction < '{settling}') AND NOT EXISTS(SELECT number FROM Booking WHERE a.number IN (SELECT number FROM Booking))) OR (a.number in (SELECT number FROM Booking WHERE settling > '{eviction}') OR (a.number in (SELECT number FROM Booking WHERE eviction < '{settling}'))) AND NOT EXISTS(SELECT number FROM Living WHERE a.number IN (SELECT number FROM Living)) OR ((a.number in (SELECT number FROM Living WHERE eviction<'{settling}')) AND (a.number in (SELECT number FROM Booking WHERE settling>'{eviction}') OR (a.number in (SELECT number FROM Booking WHERE eviction<'{settling}')))) OR (a.number NOT IN (SELECT number FROM Living) AND a.number NOT IN (SELECT number FROM Booking)))");
-            return View(db.Apartments.Include(a => a.ApartmentType).ToList());
+            string settlingStr = ConvertDateToString(settling);
+            string evictionStr = ConvertDateToString(eviction);
+            var requestResultTest = db.Database.SqlQuery<Apartments>($"SELECT * FROM Apartments b WHERE EXISTS (SELECT a.id FROM Apartments a WHERE b.id = a.id AND a.price > {0} AND a.price < {999999} AND (( EXISTS (SELECT apartmentsid FROM Livings WHERE eviction < '{settlingStr}' AND apartmentsid = a.id) AND NOT EXISTS(SELECT apartmentsid FROM Bookings WHERE EXISTS (SELECT apartmentsid FROM Bookings WHERE apartmentsid = a.id))) OR (EXISTS (SELECT apartmentsid FROM Bookings WHERE settling > '{evictionStr}' AND apartmentsid = a.id) OR ( EXISTS (SELECT apartmentsid FROM Bookings WHERE eviction < '{settlingStr}' AND apartmentsid = a.id))) AND NOT EXISTS(SELECT apartmentsid FROM Livings WHERE EXISTS (SELECT apartmentsid FROM Livings WHERE apartmentsid = a.id)) OR (( EXISTS (SELECT apartmentsid FROM Livings WHERE eviction<'{settlingStr}' AND apartmentsid = a.id)) AND ( EXISTS (SELECT apartmentsid FROM Bookings WHERE settling>'{evictionStr}' AND apartmentsid = a.id ) OR ( EXISTS (SELECT apartmentsid FROM Bookings WHERE eviction<'{settlingStr}' AND apartmentsid = a.id)))) OR ( NOT EXISTS (SELECT apartmentsid FROM Livings WHERE apartmentsid = a.id) AND NOT EXISTS (SELECT apartmentsid FROM Bookings WHERE apartmentsid = a.id))))");
+            return View("AvailableApartments", requestResultTest);
         }
 
         [HttpPost]
@@ -190,6 +192,15 @@ namespace Lab1.Controllers
                 });
             }
             ViewBag.Client = new SelectList(viewClient, "ClientId", "ClientFIO");
+        }
+        public String ConvertDateToString(DateTime? dt)
+        {
+            string processingStr = dt.ToString();
+            processingStr = processingStr.Substring(0, 10);
+            string day = processingStr.Substring(0, 2);
+            string month = processingStr.Substring(3, 2);
+            string year = processingStr.Substring(6, 4);
+            return year + "-" + month + "-" + day;
         }
     }
 }
