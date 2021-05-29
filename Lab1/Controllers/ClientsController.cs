@@ -70,7 +70,8 @@ namespace Lab1.Controllers
                 db.Clients.Add(client);
                 db.SaveChanges();
                 int cId = client.Id;
-                return RedirectToAction("BookingDateChooser", "Bookings", new { id = cId});
+                //return RedirectToAction("BookingDateChooser", "Bookings", new { id = cId});
+                return View("~/Views/Bookings/BookingDateChooser.cshtml");
                 //return RedirectToAction("Create", "Bookings", new { id = db.Clients.First(c => c.PassportSeries == client.PassportSeries && c.PassportNumber == client.PassportNumber).Id });
             }
 
