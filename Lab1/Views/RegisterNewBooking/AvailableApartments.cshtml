@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Lab1.Models.Apartments>
+@{
+    ViewBag.Title = "AvailableApartments";
+}
+
+<h2>AvailableApartments</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApartmentType.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApartmentType.Capacity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Photos)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        using (Html.BeginForm("FinishTheRegistration", "RegisterNewBooking", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApartmentType.Type, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApartmentType.Capacity, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Photos, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                @*<td>
+                        @Html.ActionLink("Выбрать", "FinishTheRegistration",  new { apartments = item })
+                    </td>
+                    @Html.Editor("BookingId", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.BookingId } })
+                    @Html.Editor("ClientId", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.ClientId } })
+                    @Html.Editor("Settling", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.Settling } })
+                    @Html.Editor("Eviction", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.Eviction } })
+                    @Html.Editor("ValueOfGuests", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.ValueOfGuests } })
+                    @Html.Editor("ValueOfKids", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.ValueOfKids } })*@
+                <td>
+                    @Html.Editor("BookingId", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.BookingId } })
+                    @Html.Editor("ClientId", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.ClientId } })
+                    @Html.Editor("Settling", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.Settling } })
+                    @Html.Editor("Eviction", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.Eviction } })
+                    @Html.Editor("ValueOfGuests", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.ValueOfGuests } })
+                    @Html.Editor("ValueOfKids", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.ValueOfKids } })
+                    @*@Html.EditorFor(modelItem => item, new { htmlAttributes = new { @class = "form-control", @style = "display:none" } })*@
+
+
+                    @*@Html.ActionLink("Выбрать", "FinishTheRegistration", new { apartments = item })*@
+                    <input type="submit" value="Выбрать" class="btn btn-default" />
+                </td>
+            </tr>
+        }
+    }
+    </table>

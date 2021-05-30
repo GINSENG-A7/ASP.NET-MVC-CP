@@ -129,8 +129,7 @@
     <Compile Include="Controllers\AditionServicesController.cs" />
     <Compile Include="Controllers\ApartmentsController.cs" />
     <Compile Include="Controllers\ApartmentTypeController.cs" />
-    <Compile Include="Controllers\AvailableApartmentsController.cs" />
-    <Compile Include="Controllers\BookingDateChooserController.cs" />
+    <Compile Include="Controllers\RegisterNewBookingController.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\LivingsController.cs" />
@@ -306,8 +305,8 @@
     <Content Include="Views\Apartments\Details.cshtml" />
     <Content Include="Views\Apartments\Edit.cshtml" />
     <Content Include="Views\Apartments\Index.cshtml" />
-    <Content Include="Views\BookingDateChooser\BookingDateChooser.cshtml" />
-    <Content Include="Views\AvailableApartments\AvailableApartments.cshtml" />
+    <Content Include="Views\RegisterNewBooking\BookingDateChooser.cshtml" />
+    <Content Include="Views\RegisterNewBooking\AvailableApartments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
