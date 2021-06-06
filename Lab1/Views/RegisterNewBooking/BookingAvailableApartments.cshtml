@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Lab1.Models.Apartments>
 @{
-    ViewBag.Title = "AvailableApartments";
+    ViewBag.Title = "BookingAvailableApartments";
 }
 
 <h2>AvailableApartments</h2>
@@ -48,22 +48,15 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Photos, new { htmlAttributes = new { @class = "form-control" } })
                 </td>
-                @*<td>
-                        @Html.ActionLink("Выбрать", "FinishTheRegistration",  new { apartments = item })
-                    </td>
-                    @Html.Editor("BookingId", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.BookingId } })
-                    @Html.Editor("ClientId", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.ClientId } })
-                    @Html.Editor("Settling", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.Settling } })
-                    @Html.Editor("Eviction", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.Eviction } })
-                    @Html.Editor("ValueOfGuests", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.ValueOfGuests } })
-                    @Html.Editor("ValueOfKids", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.ValueOfKids } })*@
                 <td>
+                    @*Не понятно, почему при передачи модели через форму передаётся null*@
+                    @Html.Editor("ApartmentId", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = item.Id } })
                     @Html.Editor("BookingId", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.BookingId } })
-                    @Html.Editor("ClientId", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.ClientId } })
-                    @Html.Editor("Settling", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.Settling } })
-                    @Html.Editor("Eviction", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.Eviction } })
-                    @Html.Editor("ValueOfGuests", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.ValueOfGuests } })
-                    @Html.Editor("ValueOfKids", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.ValueOfKids } })
+                    @Html.Hidden("ClientId", new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.ClientId } })
+                    @Html.Hidden("Settling", new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.Settling } })
+                    @Html.Hidden("Eviction", new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.Eviction } })
+                    @Html.Hidden("ValueOfGuests", new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.ValueOfGuests } })
+                    @Html.Hidden("ValueOfKids", new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.ValueOfKids } })
                     @*@Html.EditorFor(modelItem => item, new { htmlAttributes = new { @class = "form-control", @style = "display:none" } })*@
 
 
@@ -73,4 +66,4 @@
             </tr>
         }
     }
-    </table>
+</table>

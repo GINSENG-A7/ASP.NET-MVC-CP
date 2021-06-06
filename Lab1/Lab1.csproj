@@ -134,6 +134,7 @@
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\LivingsController.cs" />
     <Compile Include="Controllers\PhotosController.cs" />
+    <Compile Include="Controllers\RegisterNewLivingController.cs" />
     <Compile Include="Controllers\ServiceTypesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -306,7 +307,9 @@
     <Content Include="Views\Apartments\Edit.cshtml" />
     <Content Include="Views\Apartments\Index.cshtml" />
     <Content Include="Views\RegisterNewBooking\BookingDateChooser.cshtml" />
-    <Content Include="Views\RegisterNewBooking\AvailableApartments.cshtml" />
+    <Content Include="Views\RegisterNewBooking\BookingAvailableApartments.cshtml" />
+    <Content Include="Views\RegisterNewLiving\LivingAvailableApartments.cshtml" />
+    <Content Include="Views\RegisterNewLiving\LivingDateChooser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

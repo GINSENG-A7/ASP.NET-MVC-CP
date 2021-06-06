@@ -66,6 +66,11 @@
             @Html.DisplayFor(model => model.Telephone)
         </dd>
 
+        <td>
+            @Html.RouteLink("Посмотреть проживания", "MoveToLivings", new { id = Model.Id }) |
+            @Html.RouteLink("Посмотреть брони", "MoveToBookings", new { id = Model.Id }) |
+        </td>
+
     </dl>
 </div>
 <p>

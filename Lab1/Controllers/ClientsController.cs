@@ -18,7 +18,7 @@ namespace Lab1.Controllers
         // GET: Clients
         public ActionResult Index()
         {
-            return View(db.Clients.ToList());
+            return View(db.Clients.Include(l => l.Livings).Include(b => b.Bookings).ToList());
         }
 
         // GET: Clients/Details/5
@@ -69,7 +69,6 @@ namespace Lab1.Controllers
             {
                 db.Clients.Add(client);
                 db.SaveChanges();
-                int cId = client.Id;
                 ViewBag.ClientId = client.Id;
                 //return RedirectToAction("BookingDateChooser", "Bookings", new { id = cId});
                 return View("~/Views/RegisterNewBooking/BookingDateChooser.cshtml");
@@ -174,6 +173,64 @@ namespace Lab1.Controllers
             if (!string.IsNullOrEmpty(searchableTelephone))
                 clients = clients.Where(c => c.Telephone.Contains(searchableTelephone));
             return View("Index", clients);
+        }
+
+        public ActionResult AddLiving(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                Client client = db.Clients.Find(id);
+                ViewBag.ClientId = client.Id;
+                //return RedirectToAction("BookingDateChooser", "Bookings", new { id = cId});
+                return View("~/Views/RegisterNewLiving/BookingDateChooser.cshtml");
+                //return RedirectToAction("Create", "Bookings", new { id = db.Clients.First(c => c.PassportSeries == client.PassportSeries && c.PassportNumber == client.PassportNumber).Id });
+            }
+
+            return View("Index");
+        }
+
+        public ActionResult AddBooking(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                Client client = db.Clients.Find(id);
+                ViewBag.ClientId = client.Id;
+                //return RedirectToAction("BookingDateChooser", "Bookings", new { id = cId});
+                return View("~/Views/RegisterNewBooking/BookingDateChooser.cshtml");
+                //return RedirectToAction("Create", "Bookings", new { id = db.Clients.First(c => c.PassportSeries == client.PassportSeries && c.PassportNumber == client.PassportNumber).Id });
+            }
+
+            return View("Index");
+        }
+
+        public ActionResult MoveToLivings(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                Client client = db.Clients.Find(id);
+                ViewBag.ClientId = client.Id;
+                int cId = client.Id;
+                return RedirectToAction("IndexByClient", "Livings", new { id = cId});
+                //return View("~/Views/RegisterNewBooking/BookingDateChooser.cshtml");
+                //return RedirectToAction("Create", "Bookings", new { id = db.Clients.First(c => c.PassportSeries == client.PassportSeries && c.PassportNumber == client.PassportNumber).Id });
+            }
+
+            return View("Index");
+        }
+
+        public ActionResult MoveToBookings(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                Client client = db.Clients.Find(id);
+                ViewBag.ClientId = client.Id;
+                int cId = client.Id;
+                return RedirectToAction("IndexByClient", "Bookings", new { id = cId });
+                //return View("~/Views/RegisterNewBooking/BookingDateChooser.cshtml");
+                //return RedirectToAction("Create", "Bookings", new { id = db.Clients.First(c => c.PassportSeries == client.PassportSeries && c.PassportNumber == client.PassportNumber).Id });
+            }
+
+            return View("Index");
         }
     }
 }
