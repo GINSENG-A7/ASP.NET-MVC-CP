@@ -1,0 +1,614 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище DefaultConnectionModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AditionServices">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+          <Property Name="Living_Id" Type="int" />
+          <Property Name="ServiceTypesId" Type="int" />
+          <Property Name="DateOfService" Type="datetime" Nullable="false" />
+          <Property Name="LivingsId" Type="int" />
+        </EntityType>
+        <EntityType Name="Apartments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+          <Property Name="ApartmentTypeId" Type="int" />
+          <Property Name="Number" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ApartmentTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Capacity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bookings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ValueOfGuests" Type="int" Nullable="false" />
+          <Property Name="ValueOfKids" Type="int" Nullable="false" />
+          <Property Name="Settling" Type="datetime" Nullable="false" />
+          <Property Name="Eviction" Type="datetime" Nullable="false" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="ApartmentsId" Type="int" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PassportNumber" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PassportSeries" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Birgthday" Type="datetime" Nullable="false" />
+          <Property Name="Telephone" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Livings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ValueOfGuests" Type="int" Nullable="false" />
+          <Property Name="ValueOfKids" Type="int" Nullable="false" />
+          <Property Name="Settling" Type="datetime" Nullable="false" />
+          <Property Name="Eviction" Type="datetime" Nullable="false" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="ApartmentsId" Type="int" />
+        </EntityType>
+        <EntityType Name="Photos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Photo" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ApartmentsId" Type="int" />
+        </EntityType>
+        <EntityType Name="ServiceTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_AditionServices_dbo_Livings_Living_Id">
+          <End Role="Livings" Type="Self.Livings" Multiplicity="0..1" />
+          <End Role="AditionServices" Type="Self.AditionServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Livings">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AditionServices">
+              <PropertyRef Name="Living_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AditionServices_dbo_ServiceTypes_ServiceTypes_Id">
+          <End Role="ServiceTypes" Type="Self.ServiceTypes" Multiplicity="0..1" />
+          <End Role="AditionServices" Type="Self.AditionServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AditionServices">
+              <PropertyRef Name="ServiceTypesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Apartments_dbo_ApartmentTypes_ApartmentType_Id">
+          <End Role="ApartmentTypes" Type="Self.ApartmentTypes" Multiplicity="0..1" />
+          <End Role="Apartments" Type="Self.Apartments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApartmentTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Apartments">
+              <PropertyRef Name="ApartmentTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Bookings_dbo_Apartments_ApartmentsId">
+          <End Role="Apartments" Type="Self.Apartments" Multiplicity="0..1" />
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Apartments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="ApartmentsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Bookings_dbo_Clients_Client_Id">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Livings_dbo_Apartments_Apartments_Id">
+          <End Role="Apartments" Type="Self.Apartments" Multiplicity="0..1" />
+          <End Role="Livings" Type="Self.Livings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Apartments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Livings">
+              <PropertyRef Name="ApartmentsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Livings_dbo_Clients_Client_Id">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Livings" Type="Self.Livings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Livings">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Photos_dbo_Apartments_Apartments_Id">
+          <End Role="Apartments" Type="Self.Apartments" Multiplicity="0..1" />
+          <End Role="Photos" Type="Self.Photos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Apartments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Photos">
+              <PropertyRef Name="ApartmentsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище DefaultConnectionModelContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AditionServices" EntityType="Self.AditionServices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Apartments" EntityType="Self.Apartments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ApartmentTypes" EntityType="Self.ApartmentTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bookings" EntityType="Self.Bookings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Livings" EntityType="Self.Livings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Photos" EntityType="Self.Photos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServiceTypes" EntityType="Self.ServiceTypes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_AditionServices_dbo_Livings_Living_Id" Association="Self.FK_dbo_AditionServices_dbo_Livings_Living_Id">
+            <End Role="Livings" EntitySet="Livings" />
+            <End Role="AditionServices" EntitySet="AditionServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AditionServices_dbo_ServiceTypes_ServiceTypes_Id" Association="Self.FK_dbo_AditionServices_dbo_ServiceTypes_ServiceTypes_Id">
+            <End Role="ServiceTypes" EntitySet="ServiceTypes" />
+            <End Role="AditionServices" EntitySet="AditionServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Apartments_dbo_ApartmentTypes_ApartmentType_Id" Association="Self.FK_dbo_Apartments_dbo_ApartmentTypes_ApartmentType_Id">
+            <End Role="ApartmentTypes" EntitySet="ApartmentTypes" />
+            <End Role="Apartments" EntitySet="Apartments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Bookings_dbo_Apartments_ApartmentsId" Association="Self.FK_dbo_Bookings_dbo_Apartments_ApartmentsId">
+            <End Role="Apartments" EntitySet="Apartments" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Bookings_dbo_Clients_Client_Id" Association="Self.FK_dbo_Bookings_dbo_Clients_Client_Id">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Livings_dbo_Apartments_Apartments_Id" Association="Self.FK_dbo_Livings_dbo_Apartments_Apartments_Id">
+            <End Role="Apartments" EntitySet="Apartments" />
+            <End Role="Livings" EntitySet="Livings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Livings_dbo_Clients_Client_Id" Association="Self.FK_dbo_Livings_dbo_Clients_Client_Id">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Livings" EntitySet="Livings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Photos_dbo_Apartments_Apartments_Id" Association="Self.FK_dbo_Photos_dbo_Apartments_Apartments_Id">
+            <End Role="Apartments" EntitySet="Apartments" />
+            <End Role="Photos" EntitySet="Photos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DefaultConnectionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AditionServices">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <Property Name="Living_Id" Type="Int32" />
+          <Property Name="ServiceTypesId" Type="Int32" />
+          <Property Name="DateOfService" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LivingsId" Type="Int32" />
+          <NavigationProperty Name="Livings" Relationship="Self.FK_dbo_AditionServices_dbo_Livings_Living_Id" FromRole="AditionServices" ToRole="Livings" />
+          <NavigationProperty Name="ServiceTypes" Relationship="Self.FK_dbo_AditionServices_dbo_ServiceTypes_ServiceTypes_Id" FromRole="AditionServices" ToRole="ServiceTypes" />
+        </EntityType>
+        <EntityType Name="Apartments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <Property Name="ApartmentTypeId" Type="Int32" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ApartmentTypes" Relationship="Self.FK_dbo_Apartments_dbo_ApartmentTypes_ApartmentType_Id" FromRole="Apartments" ToRole="ApartmentTypes" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK_dbo_Bookings_dbo_Apartments_ApartmentsId" FromRole="Apartments" ToRole="Bookings" />
+          <NavigationProperty Name="Livings" Relationship="Self.FK_dbo_Livings_dbo_Apartments_Apartments_Id" FromRole="Apartments" ToRole="Livings" />
+          <NavigationProperty Name="Photos" Relationship="Self.FK_dbo_Photos_dbo_Apartments_Apartments_Id" FromRole="Apartments" ToRole="Photos" />
+        </EntityType>
+        <EntityType Name="ApartmentTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Capacity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Apartments" Relationship="Self.FK_dbo_Apartments_dbo_ApartmentTypes_ApartmentType_Id" FromRole="ApartmentTypes" ToRole="Apartments" />
+        </EntityType>
+        <EntityType Name="Bookings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ValueOfGuests" Type="Int32" Nullable="false" />
+          <Property Name="ValueOfKids" Type="Int32" Nullable="false" />
+          <Property Name="Settling" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Eviction" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="ApartmentsId" Type="Int32" />
+          <NavigationProperty Name="Apartments" Relationship="Self.FK_dbo_Bookings_dbo_Apartments_ApartmentsId" FromRole="Bookings" ToRole="Apartments" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK_dbo_Bookings_dbo_Clients_Client_Id" FromRole="Bookings" ToRole="Clients" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PassportNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PassportSeries" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Birgthday" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Telephone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK_dbo_Bookings_dbo_Clients_Client_Id" FromRole="Clients" ToRole="Bookings" />
+          <NavigationProperty Name="Livings" Relationship="Self.FK_dbo_Livings_dbo_Clients_Client_Id" FromRole="Clients" ToRole="Livings" />
+        </EntityType>
+        <EntityType Name="Livings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ValueOfGuests" Type="Int32" Nullable="false" />
+          <Property Name="ValueOfKids" Type="Int32" Nullable="false" />
+          <Property Name="Settling" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Eviction" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="ApartmentsId" Type="Int32" />
+          <NavigationProperty Name="AditionServices" Relationship="Self.FK_dbo_AditionServices_dbo_Livings_Living_Id" FromRole="Livings" ToRole="AditionServices" />
+          <NavigationProperty Name="Apartments" Relationship="Self.FK_dbo_Livings_dbo_Apartments_Apartments_Id" FromRole="Livings" ToRole="Apartments" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK_dbo_Livings_dbo_Clients_Client_Id" FromRole="Livings" ToRole="Clients" />
+        </EntityType>
+        <EntityType Name="Photos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ApartmentsId" Type="Int32" />
+          <NavigationProperty Name="Apartments" Relationship="Self.FK_dbo_Photos_dbo_Apartments_Apartments_Id" FromRole="Photos" ToRole="Apartments" />
+        </EntityType>
+        <EntityType Name="ServiceTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AditionServices" Relationship="Self.FK_dbo_AditionServices_dbo_ServiceTypes_ServiceTypes_Id" FromRole="ServiceTypes" ToRole="AditionServices" />
+        </EntityType>
+        <Association Name="FK_dbo_AditionServices_dbo_Livings_Living_Id">
+          <End Role="Livings" Type="Self.Livings" Multiplicity="0..1" />
+          <End Role="AditionServices" Type="Self.AditionServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Livings">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AditionServices">
+              <PropertyRef Name="Living_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AditionServices_dbo_ServiceTypes_ServiceTypes_Id">
+          <End Role="ServiceTypes" Type="Self.ServiceTypes" Multiplicity="0..1" />
+          <End Role="AditionServices" Type="Self.AditionServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AditionServices">
+              <PropertyRef Name="ServiceTypesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Apartments_dbo_ApartmentTypes_ApartmentType_Id">
+          <End Role="ApartmentTypes" Type="Self.ApartmentTypes" Multiplicity="0..1" />
+          <End Role="Apartments" Type="Self.Apartments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApartmentTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Apartments">
+              <PropertyRef Name="ApartmentTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Bookings_dbo_Apartments_ApartmentsId">
+          <End Role="Apartments" Type="Self.Apartments" Multiplicity="0..1" />
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Apartments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="ApartmentsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Livings_dbo_Apartments_Apartments_Id">
+          <End Role="Apartments" Type="Self.Apartments" Multiplicity="0..1" />
+          <End Role="Livings" Type="Self.Livings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Apartments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Livings">
+              <PropertyRef Name="ApartmentsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Photos_dbo_Apartments_Apartments_Id">
+          <End Role="Apartments" Type="Self.Apartments" Multiplicity="0..1" />
+          <End Role="Photos" Type="Self.Photos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Apartments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Photos">
+              <PropertyRef Name="ApartmentsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Bookings_dbo_Clients_Client_Id">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Livings_dbo_Clients_Client_Id">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Livings" Type="Self.Livings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Livings">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DefaultConnectionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AditionServices" EntityType="Self.AditionServices" />
+          <EntitySet Name="Apartments" EntityType="Self.Apartments" />
+          <EntitySet Name="ApartmentTypes" EntityType="Self.ApartmentTypes" />
+          <EntitySet Name="Bookings" EntityType="Self.Bookings" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" />
+          <EntitySet Name="Livings" EntityType="Self.Livings" />
+          <EntitySet Name="Photos" EntityType="Self.Photos" />
+          <EntitySet Name="ServiceTypes" EntityType="Self.ServiceTypes" />
+          <AssociationSet Name="FK_dbo_AditionServices_dbo_Livings_Living_Id" Association="Self.FK_dbo_AditionServices_dbo_Livings_Living_Id">
+            <End Role="Livings" EntitySet="Livings" />
+            <End Role="AditionServices" EntitySet="AditionServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AditionServices_dbo_ServiceTypes_ServiceTypes_Id" Association="Self.FK_dbo_AditionServices_dbo_ServiceTypes_ServiceTypes_Id">
+            <End Role="ServiceTypes" EntitySet="ServiceTypes" />
+            <End Role="AditionServices" EntitySet="AditionServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Apartments_dbo_ApartmentTypes_ApartmentType_Id" Association="Self.FK_dbo_Apartments_dbo_ApartmentTypes_ApartmentType_Id">
+            <End Role="ApartmentTypes" EntitySet="ApartmentTypes" />
+            <End Role="Apartments" EntitySet="Apartments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Bookings_dbo_Apartments_ApartmentsId" Association="Self.FK_dbo_Bookings_dbo_Apartments_ApartmentsId">
+            <End Role="Apartments" EntitySet="Apartments" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Livings_dbo_Apartments_Apartments_Id" Association="Self.FK_dbo_Livings_dbo_Apartments_Apartments_Id">
+            <End Role="Apartments" EntitySet="Apartments" />
+            <End Role="Livings" EntitySet="Livings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Photos_dbo_Apartments_Apartments_Id" Association="Self.FK_dbo_Photos_dbo_Apartments_Apartments_Id">
+            <End Role="Apartments" EntitySet="Apartments" />
+            <End Role="Photos" EntitySet="Photos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Bookings_dbo_Clients_Client_Id" Association="Self.FK_dbo_Bookings_dbo_Clients_Client_Id">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Livings_dbo_Clients_Client_Id" Association="Self.FK_dbo_Livings_dbo_Clients_Client_Id">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Livings" EntitySet="Livings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DefaultConnectionModelContainer" CdmEntityContainer="DefaultConnectionEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="DefaultConnectionModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AditionServices">
+            <EntityTypeMapping TypeName="DefaultConnectionModel.AditionServices">
+              <MappingFragment StoreEntitySet="AditionServices">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Living_Id" ColumnName="Living_Id" />
+                <ScalarProperty Name="ServiceTypesId" ColumnName="ServiceTypesId" />
+                <ScalarProperty Name="DateOfService" ColumnName="DateOfService" />
+                <ScalarProperty Name="LivingsId" ColumnName="LivingsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Apartments">
+            <EntityTypeMapping TypeName="DefaultConnectionModel.Apartments">
+              <MappingFragment StoreEntitySet="Apartments">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ApartmentTypeId" ColumnName="ApartmentTypeId" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApartmentTypes">
+            <EntityTypeMapping TypeName="DefaultConnectionModel.ApartmentTypes">
+              <MappingFragment StoreEntitySet="ApartmentTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bookings">
+            <EntityTypeMapping TypeName="DefaultConnectionModel.Bookings">
+              <MappingFragment StoreEntitySet="Bookings">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ValueOfGuests" ColumnName="ValueOfGuests" />
+                <ScalarProperty Name="ValueOfKids" ColumnName="ValueOfKids" />
+                <ScalarProperty Name="Settling" ColumnName="Settling" />
+                <ScalarProperty Name="Eviction" ColumnName="Eviction" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="ApartmentsId" ColumnName="ApartmentsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="DefaultConnectionModel.Clients">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="PassportSeries" ColumnName="PassportSeries" />
+                <ScalarProperty Name="Birgthday" ColumnName="Birgthday" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Livings">
+            <EntityTypeMapping TypeName="DefaultConnectionModel.Livings">
+              <MappingFragment StoreEntitySet="Livings">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ValueOfGuests" ColumnName="ValueOfGuests" />
+                <ScalarProperty Name="ValueOfKids" ColumnName="ValueOfKids" />
+                <ScalarProperty Name="Settling" ColumnName="Settling" />
+                <ScalarProperty Name="Eviction" ColumnName="Eviction" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="ApartmentsId" ColumnName="ApartmentsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Photos">
+            <EntityTypeMapping TypeName="DefaultConnectionModel.Photos">
+              <MappingFragment StoreEntitySet="Photos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="ApartmentsId" ColumnName="ApartmentsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceTypes">
+            <EntityTypeMapping TypeName="DefaultConnectionModel.ServiceTypes">
+              <MappingFragment StoreEntitySet="ServiceTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
