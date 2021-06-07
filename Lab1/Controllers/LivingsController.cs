@@ -151,14 +151,14 @@ namespace Lab1.Controllers
             ViewBag.Apartments = new SelectList(viewApartments, "ApartmentsId", "ApartmentsNumber");
         }
 
-        private ActionResult ShowAdditionalServices(int id)
+        public ActionResult ShowAdditionalServices(int id)
         {
             Living living = db.Livings.Include(a => a.Apartments).Include(c => c.Client).Include(s => s.AditionServices).ToList().Find(x => x.Id == id);
             if (living == null)
             {
                 return HttpNotFound();
             }
-            return RedirectToAction("Index", "Bookings", new { id = living.Id });
+            return RedirectToAction("Index", "AditionServices", new { id = living.Id });
         }
     }
 }

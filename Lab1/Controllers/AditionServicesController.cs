@@ -14,16 +14,22 @@ namespace Lab1.Controllers
     public class AditionServicesController : Controller
     {
         private ContextModel db = new ContextModel();
+        public static bool isEnabledCreateNew = false;
 
         // GET: AditionServices
         public ActionResult Index(int? id)
         {
             if(id == null)
             {
+                isEnabledCreateNew = false;
+                ViewBag.isEnabledCreateNew = isEnabledCreateNew;
                 return View(db.AditionServices.Include(a => a.ServiceTypes).ToList());
             }
             else
             {
+                ViewBag.LivingId = id;
+                isEnabledCreateNew = true;
+                ViewBag.isEnabledCreateNew = isEnabledCreateNew;
                 return View(db.AditionServices.Include(a => a.ServiceTypes).Where(x => x.Living.Id == id).ToList());
             }
         }
@@ -44,8 +50,10 @@ namespace Lab1.Controllers
         }
 
         // GET: AditionServices/Create
-        public ActionResult Create()
+        public ActionResult Create(int? LivingId)
         {
+            ViewBag.LivingId = LivingId;
+            ServiceTypesDataLogistics();
             return View();
         }
 
@@ -54,14 +62,16 @@ namespace Lab1.Controllers
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Price,DateOfService,ServicesTypeId")] AditionServices aditionServices)
+        public ActionResult Create([Bind(Include = "Id,Price,DateOfService,ServicesTypeId")] AditionServices aditionServices, int? LivingId)
         {
+            aditionServices.LivingsId = LivingId;
+            Living living = db.Livings.Where(x => x.Id == LivingId).First();
             //Проверка корректности даты оказания дополнительных услуг 
-            if (aditionServices.DateOfService < aditionServices.Living.Settling)
+            if (aditionServices.DateOfService < living.Settling)
             {
                 ModelState.AddModelError("Number", "Дата оказания услуги не может быть меньше даты заезда");
             }
-            if (aditionServices.DateOfService > aditionServices.Living.Eviction)
+            if (aditionServices.DateOfService > living.Eviction)
             {
                 ModelState.AddModelError("Number", "Дата оказания услуги не может быть больше даты выезда");
             }
@@ -167,7 +177,7 @@ namespace Lab1.Controllers
                     ServiceTypeName = item.Type
                 });
             }
-            ViewBag.ApartmentType = new SelectList(viewServiceType, "ApartmentTypeId", "ApartmentTypeName");
+            ViewBag.ServiceTypes = new SelectList(viewServiceType, "ServiceTypeId", "ServiceTypeName");
         }
     }
 }

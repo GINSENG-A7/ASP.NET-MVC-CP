@@ -7,7 +7,10 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if(ViewBag.isEnabledCreateNew == true)
+    {
+        @Html.ActionLink("Create New", "Create", new { LivingId = ViewBag.LivingId })
+    }
 </p>
 <table class="table">
     <tr>
@@ -26,7 +29,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.DateOfService)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceTypes.Type)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
