@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -16,9 +17,16 @@ namespace Lab1.Controllers
         private ContextModel db = new ContextModel();
 
         // GET: Bookings
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            return View(db.Bookings.Include(a => a.Apartments).ToList());
+            if (id == null)
+            {
+                return View(db.Bookings.Include(a => a.Apartments).Include(c => c.Client).ToList());
+            }
+            else
+            {
+                return View(db.Bookings.Include(a => a.Apartments).Include(c => c.Client).Where(x => x.Client.Id == id).ToList());
+            }
         }
 
         // GET: Bookings/Details/5
@@ -28,7 +36,7 @@ namespace Lab1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Booking booking = db.Bookings.Include(a => a.Apartments).ToList().Find(x => x.Id == id);
+            Booking booking = db.Bookings.Include(a => a.Apartments).Include(c => c.Client).ToList().Find(x => x.Id == id);
             if (booking == null)
             {
                 return HttpNotFound();
@@ -36,33 +44,29 @@ namespace Lab1.Controllers
             return View(booking);
         }
 
-        // GET: Bookings/Create
-        //public ActionResult Create()
+        ////Удалить, т.к. добавление проживаний и броней происходит через клиента
+        //public ActionResult Create(int? id)
         //{
+        //    ApartmentsDataLogistics();
+        //    ViewBag.ClientId = id;
         //    return View();
         //}
-        public ActionResult Create(int? id)
-        {
-            ApartmentsDataLogistics();
-            ViewBag.ClientId = id;
-            return View();
-        }
-        // POST: Bookings/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ValueOfGuests,ValueOfKids,Settling,Eviction,Client,Apartments")] Booking booking)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Bookings.Add(booking);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //// POST: Bookings/Create
+        //// Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
+        //// сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "Id,ValueOfGuests,ValueOfKids,Settling,Eviction,ClientId,ApartmentsId")] Booking booking)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Bookings.Add(booking);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            return View(booking);
-        }
+        //    return View(booking);
+        //}
 
         // GET: Bookings/Edit/5
         public ActionResult Edit(int? id)
@@ -161,5 +165,6 @@ namespace Lab1.Controllers
             }
             ViewBag.Client = new SelectList(viewClient, "ClientId", "ClientFIO");
         }
+
     }
 }

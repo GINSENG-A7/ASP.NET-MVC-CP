@@ -16,6 +16,9 @@ namespace Lab1.Models
         [Required(ErrorMessage = "Поле обязательно к заполнению")]
         [Display(Name = "Тип")]
         public string Type { get; set; }
+        [Required(ErrorMessage = "Поле обязательно к заполнению")]
+        [Display(Name = "Вместимость номера")]
+        public int Capacity { get; set; }
         public ICollection<Apartments> Apartments { get; set; }
         public ApartmentType()
         {

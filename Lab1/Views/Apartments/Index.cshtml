@@ -20,6 +20,9 @@
         <th>
             @Html.DisplayNameFor(model => model.ApartmentType.Type)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApartmentType.Capacity)
+        </th>
         <th></th>
     </tr>
 
@@ -33,6 +36,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ApartmentType.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApartmentType.Capacity)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

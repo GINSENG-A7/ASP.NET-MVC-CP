@@ -11,6 +11,46 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.Client.PassportSeries)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Client.PassportSeries)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Client.PassportNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Client.PassportNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Client.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Client.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Client.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Client.Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Client.Patronymic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Client.Patronymic)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.ValueOfGuests)
         </dt>
 
@@ -43,16 +83,25 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.NumberOfApartments)
+            @Html.DisplayNameFor(model => model.Apartments.Number)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.NumberOfApartments)
+            @Html.DisplayFor(model => model.Apartments.Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Client.Telephone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Client.Telephone)
         </dd>
 
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Дополнительные услуги", "ShowAdditionalServices", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
