@@ -16,9 +16,16 @@ namespace Lab1.Controllers
         private ContextModel db = new ContextModel();
 
         // GET: AditionServices
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            return View(db.AditionServices.Include(a => a.ServiceTypes).ToList());
+            if(id == null)
+            {
+                return View(db.AditionServices.Include(a => a.ServiceTypes).ToList());
+            }
+            else
+            {
+                return View(db.AditionServices.Include(a => a.ServiceTypes).Where(x => x.Living.Id == id).ToList());
+            }
         }
 
         // GET: AditionServices/Details/5

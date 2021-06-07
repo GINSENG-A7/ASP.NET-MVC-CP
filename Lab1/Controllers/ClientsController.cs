@@ -210,7 +210,7 @@ namespace Lab1.Controllers
                 Client client = db.Clients.Find(id);
                 ViewBag.ClientId = client.Id;
                 int cId = client.Id;
-                return RedirectToAction("IndexByClient", "Livings", new { id = cId});
+                return RedirectToAction("Index", "Livings", new { id = cId});
                 //return View("~/Views/RegisterNewBooking/BookingDateChooser.cshtml");
                 //return RedirectToAction("Create", "Bookings", new { id = db.Clients.First(c => c.PassportSeries == client.PassportSeries && c.PassportNumber == client.PassportNumber).Id });
             }
@@ -225,7 +225,7 @@ namespace Lab1.Controllers
                 Client client = db.Clients.Find(id);
                 ViewBag.ClientId = client.Id;
                 int cId = client.Id;
-                return RedirectToAction("IndexByClient", "Bookings", new { id = cId });
+                return RedirectToAction("Index", "Bookings", new { id = cId });
                 //return View("~/Views/RegisterNewBooking/BookingDateChooser.cshtml");
                 //return RedirectToAction("Create", "Bookings", new { id = db.Clients.First(c => c.PassportSeries == client.PassportSeries && c.PassportNumber == client.PassportNumber).Id });
             }

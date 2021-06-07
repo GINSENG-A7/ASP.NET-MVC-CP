@@ -17,13 +17,16 @@ namespace Lab1.Controllers
         private ContextModel db = new ContextModel();
 
         // GET: Bookings
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            return View(db.Bookings.Include(a => a.Apartments).Include(c => c.Client).ToList());
-        }
-        public ActionResult IndexByClient(int id)
-        {
-            return View(db.Bookings.Include(a => a.Apartments).Include(c => c.Client).Where(x => x.Client.Id == id).ToList());
+            if (id == null)
+            {
+                return View(db.Bookings.Include(a => a.Apartments).Include(c => c.Client).ToList());
+            }
+            else
+            {
+                return View(db.Bookings.Include(a => a.Apartments).Include(c => c.Client).Where(x => x.Client.Id == id).ToList());
+            }
         }
 
         // GET: Bookings/Details/5

@@ -16,14 +16,16 @@ namespace Lab1.Controllers
         private ContextModel db = new ContextModel();
 
         // GET: Livings
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            return View(db.Livings.Include(a => a.Apartments).Include(c => c.Client).ToList());
-        }
-
-        public ActionResult IndexByClient(int id)
-        {
-            return View(db.Livings.Include(a => a.Apartments).Include(c => c.Client).Where(x => x.Client.Id == id).ToList());
+            if (id == null)
+            {
+                return View(db.Livings.Include(a => a.Apartments).Include(c => c.Client).ToList());
+            }
+            else
+            {
+                return View(db.Livings.Include(a => a.Apartments).Include(c => c.Client).Where(x => x.Client.Id == id).ToList());
+            }
         }
 
         // GET: Livings/Details/5
@@ -147,6 +149,16 @@ namespace Lab1.Controllers
                 });
             }
             ViewBag.Apartments = new SelectList(viewApartments, "ApartmentsId", "ApartmentsNumber");
+        }
+
+        private ActionResult ShowAdditionalServices(int id)
+        {
+            Living living = db.Livings.Include(a => a.Apartments).Include(c => c.Client).Include(s => s.AditionServices).ToList().Find(x => x.Id == id);
+            if (living == null)
+            {
+                return HttpNotFound();
+            }
+            return RedirectToAction("Index", "Bookings", new { id = living.Id });
         }
     }
 }
