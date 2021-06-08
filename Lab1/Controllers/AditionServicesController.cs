@@ -30,7 +30,7 @@ namespace Lab1.Controllers
                 ViewBag.LivingId = id;
                 isEnabledCreateNew = true;
                 ViewBag.isEnabledCreateNew = isEnabledCreateNew;
-                return View(db.AditionServices.Include(a => a.ServiceTypes).Where(x => x.Living.Id == id).ToList());
+                return View(db.AditionServices.Include(a => a.ServiceTypes).Where(x => x.LivingsId == id).ToList());
             }
         }
 
@@ -62,7 +62,7 @@ namespace Lab1.Controllers
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Price,DateOfService,ServicesTypeId")] AditionServices aditionServices, int? LivingId)
+        public ActionResult Create([Bind(Include = "Id,Price,DateOfService,ServiceTypesId")] AditionServices aditionServices, int? LivingId)
         {
             aditionServices.LivingsId = LivingId;
             Living living = db.Livings.Where(x => x.Id == LivingId).First();
@@ -87,7 +87,7 @@ namespace Lab1.Controllers
         }
 
         // GET: AditionServices/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, int? LivingId)
         {
             if (id == null)
             {
@@ -109,14 +109,16 @@ namespace Lab1.Controllers
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Price,DateOfService,ServicesTypeId")] AditionServices aditionServices)
+        public ActionResult Edit([Bind(Include = "Id,Price,DateOfService,ServiceTypesId")] AditionServices aditionServices, int? LivingId)
         {
+            aditionServices.LivingsId = LivingId;
+            Living living = db.Livings.Where(x => x.Id == LivingId).First();
             //Проверка корректности даты оказания дополнительных услуг 
-            if (aditionServices.DateOfService < aditionServices.Living.Settling)
+            if (aditionServices.DateOfService < living.Settling)
             {
                 ModelState.AddModelError("Number", "Дата оказания услуги не может быть меньше даты заезда");
             }
-            if (aditionServices.DateOfService > aditionServices.Living.Eviction)
+            if (aditionServices.DateOfService > living.Eviction)
             {
                 ModelState.AddModelError("Number", "Дата оказания услуги не может быть больше даты выезда");
             }

@@ -49,6 +49,9 @@
                     @Html.DisplayFor(modelItem => item.Photos, new { htmlAttributes = new { @class = "form-control" } })
                 </td>
                 <td>
+                    @Html.ActionLink("Фотографии", "Index", "Photos", new { id = ViewBag.ClientId }, new { })
+                </td>
+                <td>
                     @*Не понятно, почему при передачи модели через форму передаётся null*@
                     @Html.Editor("ApartmentId", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = item.Id } })
                     @Html.Editor("BookingId", new { htmlAttributes = new { @class = "form-control", @style = "display:none", @Value = ViewBag.BookingId } })

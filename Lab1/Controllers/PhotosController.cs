@@ -15,9 +15,16 @@ namespace Lab1.Controllers
         private ContextModel db = new ContextModel();
 
         // GET: Photos
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            return View(db.Photos.ToList());
+            if(id == null)
+            {
+                return View(db.Photos.Include(a => a.Apartments).ToList());
+            }
+            else
+            {
+                return View(db.Photos.Include(a => a.Apartments).Where(x => x.Apartments.Id == id).ToList());
+            }
         }
 
         // GET: Photos/Details/5

@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Lab1.Models;
 using Lab1.Models.DataViewModels;
+using OfficeOpenXml;
 
 namespace Lab1.Controllers
 {
@@ -159,6 +161,74 @@ namespace Lab1.Controllers
                 return HttpNotFound();
             }
             return RedirectToAction("Index", "AditionServices", new { id = living.Id });
+        }
+
+        public FileResult ExelCreate()
+        {
+            // Путь к файлу с шаблоном
+            string file_path_template = Server.MapPath("~/Content/Reports/Scheme.xlsx");
+
+            FileInfo fi = new FileInfo(file_path_template);
+            //Путь к файлу с результатом
+            string file_path = Server.MapPath("~/Content/Reports/Report.xlsx");
+
+            FileInfo fi_report = new FileInfo(file_path);
+            //будем использовть библитотеку не для коммерческого использования
+
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            //открываем файл с шаблоном 
+            using (ExcelPackage excelPackage = new ExcelPackage(fi))
+            {
+                //устанавливаем поля документа
+                excelPackage.Workbook.Properties.Author = "Директор";
+                excelPackage.Workbook.Properties.Title = "Список клиентов компанни";
+                excelPackage.Workbook.Properties.Subject = "Пользователи системы";
+                excelPackage.Workbook.Properties.Created = DateTime.Now;
+
+                ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets["Лист1"];
+
+                int startLine = 3;
+
+                var livingsList = db.Livings.Include(c => c.Client).Include(a => a.Apartments).Include(s => s.AditionServices).Where(x => x.Settling.Month == DateTime.Now.Month && x.Settling.Month == DateTime.Now.Month).ToList();
+
+                foreach (var item in livingsList)
+                {
+                    var client = db.Clients.First(x => x.Id == item.ClientId);
+                    var apartment = db.Apartments.First(x => x.Id == item.ApartmentsId);
+                    var aditionServices = db.AditionServices.Where(x => x.LivingsId == item.Id);
+
+                    string actualityRow = "Завершено";
+                    if(item.Eviction >= DateTime.Now)
+                    {
+                        actualityRow = "Активно";
+                    }
+
+                    int resultPrice = apartment.Price * (item.ValueOfGuests + item.ValueOfKids);
+                    int servicesPricesSumm = 0;
+                    foreach(var serv in aditionServices)
+                    {
+                        servicesPricesSumm += serv.Price;
+                    }
+
+                    worksheet.Cells[startLine, 1].Value = client.Name;
+                    worksheet.Cells[startLine, 2].Value = client.Surname;
+                    worksheet.Cells[startLine, 3].Value = client.Patronymic;
+                    worksheet.Cells[startLine, 4].Value = item.Settling.ToString();
+                    worksheet.Cells[startLine, 5].Value = item.Eviction.ToString();
+                    worksheet.Cells[startLine, 6].Value = actualityRow;
+                    worksheet.Cells[startLine, 7].Value = resultPrice;
+                    worksheet.Cells[startLine, 8].Value = servicesPricesSumm;
+
+                    startLine++;
+                }
+
+                excelPackage.SaveAs(fi_report);
+            }
+
+            string file_type = "application/vnd.openxmlformatsofficedocument.spreadsheetml.sheet";
+            string file_name = "Scheme.xlsx";
+
+            return File(file_path, file_type, file_name);
         }
     }
 }

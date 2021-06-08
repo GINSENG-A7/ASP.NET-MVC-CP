@@ -17,22 +17,7 @@ namespace Lab1.Controllers
         // GET: ApartmentType
         public ActionResult Index()
         {
-            return View(db.ApartmentTypes.ToList());
-        }
-
-        // GET: ApartmentType/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ApartmentType apartmentType = db.ApartmentTypes.Find(id);
-            if (apartmentType == null)
-            {
-                return HttpNotFound();
-            }
-            return View(apartmentType);
+            return View(db.ApartmentTypes.Include(a => a.Apartments).ToList());
         }
 
         // GET: ApartmentType/Create
@@ -64,46 +49,6 @@ namespace Lab1.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(apartmentType);
-        }
-
-        // GET: ApartmentType/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ApartmentType apartmentType = db.ApartmentTypes.Find(id);
-            if (apartmentType == null)
-            {
-                return HttpNotFound();
-            }
-            return View(apartmentType);
-        }
-
-        // POST: ApartmentType/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Type")] ApartmentType apartmentType)
-        {
-            foreach (ApartmentType at in db.ApartmentTypes.AsNoTracking().ToList())
-            {
-                //Проверка типа апартаментов на уникальность
-                if ((apartmentType.Type == at.Type) && (apartmentType.Id != at.Id))
-                {
-                    ModelState.AddModelError("Type", "Такой тип апартаментов уже сущесевствует");
-                }
-            }
-
-            if (ModelState.IsValid)
-            {
-                db.Entry(apartmentType).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
             return View(apartmentType);
         }
 

@@ -18,7 +18,7 @@ namespace Lab1.Controllers
         // GET: Apartments
         public ActionResult Index()
         {
-            return View(db.Apartments.Include(a => a.ApartmentType).ToList());
+            return View(db.Apartments.Include(a => a.ApartmentType).Include(p => p.Photos).ToList());
         }
 
         // GET: Apartments/Details/5

@@ -17,22 +17,7 @@ namespace Lab1.Controllers
         // GET: ServiceTypes
         public ActionResult Index()
         {
-            return View(db.ServiceTypes.ToList());
-        }
-
-        // GET: ServiceTypes/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ServiceType serviceType = db.ServiceTypes.Find(id);
-            if (serviceType == null)
-            {
-                return HttpNotFound();
-            }
-            return View(serviceType);
+            return View(db.ServiceTypes.Include(a => a.AditionServices).ToList());
         }
 
         // GET: ServiceTypes/Create
@@ -67,45 +52,6 @@ namespace Lab1.Controllers
             return View(serviceType);
         }
 
-        // GET: ServiceTypes/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ServiceType serviceType = db.ServiceTypes.Find(id);
-            if (serviceType == null)
-            {
-                return HttpNotFound();
-            }
-            return View(serviceType);
-        }
-
-        // POST: ServiceTypes/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Type")] ServiceType serviceType)
-        {
-            foreach (ServiceType st in db.ServiceTypes.AsNoTracking().ToList())
-            {
-                //Проверка типа апартаментов на уникальность
-                if ((serviceType.Type == st.Type) && (serviceType.Id != st.Id))
-                {
-                    ModelState.AddModelError("Type", "Такой тип апартаментов уже сущевствует");
-                }
-            }
-
-            if (ModelState.IsValid)
-            {
-                db.Entry(serviceType).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(serviceType);
-        }
 
         // GET: ServiceTypes/Delete/5
         public ActionResult Delete(int? id)
