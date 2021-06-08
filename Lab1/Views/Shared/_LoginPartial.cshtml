@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOut", "Accounts", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            @*<li>
+                @if (User.IsInRole("Client"))
+                {
+                    @Html.RouteLink(User.Identity.GetUserName(), new { controller = "Clients", action = "DetailsName" })
+                }
+                @if (User.IsInRole("Master"))
+                {
+                    @Html.RouteLink(User.Identity.GetUserName(), new { controller = "Masters", action = "DetailsNotId" })
+                }
+            </li>*@
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Регистрация", "Register", "Accounts", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Выполнить вход", "Login", "Accounts", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

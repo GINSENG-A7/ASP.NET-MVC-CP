@@ -11,11 +11,11 @@ using Microsoft.Owin.Security;
 
 namespace Lab1.Controllers
 {
-    public class AccountController : Controller
+    public class AccountsController : Controller
     {
         private UserManager<MyIdentityUser> userManager;
         private RoleManager<MyIdentityRole> roleManager;
-        public AccountController()
+        public AccountsController()
         {
             MyIdentityDbContext db = new MyIdentityDbContext();
             UserStore<MyIdentityUser> userStore = new UserStore<MyIdentityUser>(db);
@@ -40,8 +40,8 @@ namespace Lab1.Controllers
                 IdentityResult result = userManager.Create(user, model.Password);
                 if (result.Succeeded)
                 {
-                    userManager.AddToRole(user.Id, "Administrator");
-                    return RedirectToAction("Login", "Account");
+                    userManager.AddToRole(user.Id, "Client");
+                    return RedirectToAction("Login", "Accounts");
                 }
                 else
                 {
@@ -107,7 +107,7 @@ namespace Lab1.Controllers
                 {
                     IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
                     authenticationManager.SignOut();
-                    return RedirectToAction("Login", "Account");
+                    return RedirectToAction("Login", "Accounts");
                 }
                 else
                 {
@@ -124,7 +124,7 @@ namespace Lab1.Controllers
         {
             IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
             authenticationManager.SignOut();
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Login", "Accounts");
         }
 
     }

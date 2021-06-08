@@ -63,7 +63,8 @@ namespace Lab1.Controllers
                 db.Bookings.Add(currentBooking);
                 db.SaveChanges();
             }
-            return View("~/Views/Bookings/Index.cshtml");
+            //return View("~/Views/Bookings/Index.cshtml");
+            return RedirectToAction("Index", "Bookings", new { });
         }
 
         public String ConvertDateToString(DateTime? dt)

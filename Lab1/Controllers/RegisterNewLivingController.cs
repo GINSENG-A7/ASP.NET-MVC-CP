@@ -62,7 +62,7 @@ namespace Lab1.Controllers
                 db.Livings.Add(currentLiving);
                 db.SaveChanges();
             }
-            return View("~/Views/Livings/Index.cshtml");
+            return RedirectToAction("Index", "Livings", new { });
         }
 
         public String ConvertDateToString(DateTime? dt)

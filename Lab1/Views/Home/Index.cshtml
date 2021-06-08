@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Добро пожаловать на сайт общежития Ми ВлГУ";
 }
-<h2>Гостиница Заря</h2>
+<h2>Гостиница Зоря</h2>
 <body>
 
     <div class="container body-content">
@@ -13,6 +13,39 @@
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#profile">Наша история</a>
             </li>
+            @if (User.IsInRole("Client"))
+            {
+                <li>
+                    @Html.ActionLink("Наши номера", "Index", "Apartments")
+                </li>
+            }
+            @if (User.IsInRole("Administrator"))
+            {
+                <li>
+                    @Html.ActionLink("Клиенты", "Index", "Clients")
+                </li>
+                <li>
+                    @Html.ActionLink("Проживаия", "Index", "Livings")
+                </li>
+                <li>
+                    @Html.ActionLink("Брони", "Index", "Bookings")
+                </li>
+                <li>
+                    @Html.ActionLink("Номера", "Index", "Apartments")
+                </li>
+                <li>
+                    @Html.ActionLink("Типы номеров", "Index", "ApartmentType")
+                </li>
+                <li>
+                    @Html.ActionLink("Типы дополнительных услуг", "Index", "AditionServices")
+                </li>
+                <li>
+                    @Html.ActionLink("Наши номера", "Index", "Apartments")
+                </li>
+                <li>
+                    @Html.ActionLink("Наши номера", "Index", "Apartments")
+                </li>
+            }
         </ul>
         <div id="myTabContent" class="tab-content">
             <div class="tab-pane fade" id="home">
@@ -27,4 +60,5 @@
                 </p>
             </div>
         </div>
+    </div>
 </body>

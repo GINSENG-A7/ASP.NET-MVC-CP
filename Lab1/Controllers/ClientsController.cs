@@ -182,7 +182,7 @@ namespace Lab1.Controllers
                 Client client = db.Clients.Find(id);
                 ViewBag.ClientId = client.Id;
                 //return RedirectToAction("BookingDateChooser", "Bookings", new { id = cId});
-                return View("~/Views/RegisterNewLiving/BookingDateChooser.cshtml");
+                return View("~/Views/RegisterNewLiving/LivingDateChooser.cshtml");
                 //return RedirectToAction("Create", "Bookings", new { id = db.Clients.First(c => c.PassportSeries == client.PassportSeries && c.PassportNumber == client.PassportNumber).Id });
             }
 
