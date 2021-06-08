@@ -3,25 +3,25 @@
     ViewBag.Title = "BookingAvailableApartments";
 }
 
-<h2>AvailableApartments</h2>
+<h2>Доступные номера</h2>
 
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Number)
+            @Html.DisplayName("Номер")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayName("Цена за сутки")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ApartmentType.Type)
+            @Html.DisplayName("Тип апартаментов")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ApartmentType.Capacity)
+            @Html.DisplayName("Вместимость номера")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Photos)
+            @Html.DisplayName("Фотографии")
         </th>
         <th></th>
     </tr>

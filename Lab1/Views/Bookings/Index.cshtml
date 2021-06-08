@@ -4,36 +4,36 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Брони</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Client.Name)
+            @Html.DisplayName("Имя")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Client.Surname)
+            @Html.DisplayName("Фамилия")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Client.Patronymic)
+            @Html.DisplayName("Отчество")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ValueOfGuests)
+            @Html.DisplayName("Количество гостей")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ValueOfKids)
+            @Html.DisplayName("Количество детей")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Settling)
+            @Html.DisplayName("Дата заселения")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Eviction)
+            @Html.DisplayName("Дата выселения")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Apartments.Number)
+            @Html.DisplayName("Номер")
         </th>
         <th></th>
     </tr>
@@ -65,9 +65,9 @@
             @Html.DisplayFor(modelItem => item.Apartments.Number)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Просмотр", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

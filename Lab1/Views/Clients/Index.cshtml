@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Клиенты</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить", "Create")
 </p>
 
 @using (Html.BeginForm("SearchWithValues", "Clients", FormMethod.Post))
@@ -32,25 +32,25 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Surname)
+            @Html.DisplayName("Имя")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayName("Фамилия")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Patronymic)
+            @Html.DisplayName("Отчество")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PassportSeries)
+            @Html.DisplayName("Серия паспорта")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PassportNumber)
+            @Html.DisplayName("Номер паспорта")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Birgthday)
+            @Html.DisplayName("Дата рождения")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Telephone)
+            @Html.DisplayName("Телефон")
         </th>
         <th></th>
     </tr>
@@ -82,8 +82,8 @@
             @if(item.Livings.Count > 0 || item.Bookings.Count > 0)
             {
                 <td>
-                    @Html.ActionLink("Изменить", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Детали", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Просмотр", "Details", new { id = item.Id }) |
                     @Html.ActionLink("Добавить проживание", "AddLiving", new { id = item.Id }) |
                     @Html.ActionLink("Добавить бронь", "AddBooking", new { id = item.Id })
                 </td>
@@ -91,8 +91,8 @@
             else
             {
                 <td>
-                    @Html.ActionLink("Изменить", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Детали", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Просмотр", "Details", new { id = item.Id }) |
                     @Html.ActionLink("Удалить", "Delete", new { id = item.Id }) |
                     @Html.ActionLink("Добавить проживание", "AddLiving", new { id = item.Id }) |
                     @Html.ActionLink("Добавить бронь", "AddBooking", new { id = item.Id })

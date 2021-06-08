@@ -4,24 +4,24 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Дополнительные услуги</h2>
 
 <p>
     @if(ViewBag.isEnabledCreateNew == true)
     {
-        @Html.ActionLink("Create New", "Create", new { LivingId = ViewBag.LivingId })
+        @Html.ActionLink("Добавить", "Create", new { LivingId = ViewBag.LivingId })
     }
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.DateOfService)
+            @Html.DisplayName("Дата оказания услуги")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayName("Стоимость")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ServiceTypes.Type)
+            @Html.DisplayName("Тип услуги")
         </th>
         <th></th>
     </tr>
@@ -38,9 +38,9 @@
             @Html.DisplayFor(modelItem => item.ServiceTypes.Type)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id, LivingId = ViewBag.LivingId}) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.Id, LivingId = ViewBag.LivingId}) |
+            @Html.ActionLink("Просмотреть", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
